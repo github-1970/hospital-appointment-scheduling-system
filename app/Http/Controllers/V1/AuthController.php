@@ -46,14 +46,14 @@ class AuthController extends Controller
             return response()->json(['token' => $token]);
         }
 
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        return response()->json(['message' => __('Invalid credentials')], 401);
     }
 
     private function validationHandler($validator)
     {
         if ($validator->fails()) {
             return new JsonResponse([
-                'message' => 'The given data was invalid.',
+                'message' => 'The given data was invalid',
                 'errors' => $validator->errors(),
             ], 422);
         }

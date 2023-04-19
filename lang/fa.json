@@ -35,4 +35,7 @@
     "You are receiving this email because we received a password reset request for your account.": "شما این ایمیل را به دلیل درخواست رمزعبور جدید دریافت کرده‌اید.",
 
     "User registered successfully": "کاربر با موفقیت ثبت نام کرد",
+    "Invalid credentials": "اطلاعات ورود صحیح نمی‌باشند",
+    "The given data was invalid": "داده های داده شده نامعتبر بود",
+    "Doctor deleted successfully": "دکتر با موفقیت حذف شد"
 }

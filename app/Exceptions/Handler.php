@@ -3,7 +3,10 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Throwable;
+
+use function PHPUnit\Framework\isType;
 
 class Handler extends ExceptionHandler
 {
@@ -22,7 +25,7 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
+        AuthenticationException::class,
     ];
 
     /**
@@ -44,5 +47,29 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof AuthenticationException || $exception instanceof \Illuminate\Auth\AuthenticationException) {
+            $exception = new AuthenticationException;
+            return $exception->render($request);
+        }
+
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            return new JsonResponse([
+                'error' => __('http-statuses.404'),
+                'status' => 404
+            ], 404);
+        }
+
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            return new JsonResponse([
+                'error' => __('http-statuses.405'),
+                'status' => 405
+            ], 405);
+        }
+
+        return parent::render($request, $exception);
     }
 }
