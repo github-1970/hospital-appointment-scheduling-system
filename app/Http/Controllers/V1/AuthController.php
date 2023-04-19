@@ -25,7 +25,7 @@ class AuthController extends Controller
       'password' => Hash::make($request->password),
     ]);
 
-    return response()->json(['message' => 'User registered successfully']);
+    return response()->json(['message' => __('User registered successfully')]);
   }
 
   public function login(Request $request)
@@ -39,7 +39,10 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('authToken')->plainTextToken;
+            if ($user->isAdmin())
+                $token = $user->createToken('authToken')->plainTextToken;
+            else
+            $token = $user->createToken('authToken', ['use-appointment'])->plainTextToken;
             return response()->json(['token' => $token]);
         }
 
