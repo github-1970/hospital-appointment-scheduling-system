@@ -63,6 +63,13 @@ class Handler extends ExceptionHandler
             ], 404);
         }
 
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            return new JsonResponse([
+                'error' => __('http-statuses.404'),
+                'status' => 404
+            ], 404);
+        }
+
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             return new JsonResponse([
                 'error' => __('http-statuses.405'),

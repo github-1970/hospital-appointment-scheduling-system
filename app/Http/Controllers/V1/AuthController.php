@@ -25,7 +25,10 @@ class AuthController extends Controller
       'password' => Hash::make($request->password),
     ]);
 
-    return response()->json(['message' => __('User registered successfully')]);
+    return response()->json([
+        'message' => __('User registered successfully'),
+        'status' => __('http-statuses.200')
+    ]);
   }
 
   public function login(Request $request)
@@ -46,15 +49,18 @@ class AuthController extends Controller
             return response()->json(['token' => $token]);
         }
 
-        return response()->json(['message' => __('Invalid credentials')], 401);
+        return response()->json([
+            'message' => __('Invalid credentials'),
+            'status' => __('http-statuses.401')
+        ], 401);
     }
 
     private function validationHandler($validator)
     {
         if ($validator->fails()) {
             return new JsonResponse([
-                'message' => 'The given data was invalid',
-                'errors' => $validator->errors(),
+                'message' => __('The given data was invalid'),
+                'error' => $validator->errors(),
             ], 422);
         }
     }

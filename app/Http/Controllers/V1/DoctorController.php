@@ -31,7 +31,10 @@ class DoctorController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+            return response()->json([
+                'error' => $validator->errors(),
+                'status' => __('http-statuses.400')
+            ], 400);
         }
 
         $doctor = Doctor::create($request->all());
@@ -53,15 +56,23 @@ class DoctorController extends Controller
     public function update(Request $request, Doctor $doctor)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'specialty' => 'required|string|max:255',
+            'name' => 'string|max:255',
+            'specialty' => 'string|max:255',
         ]);
 
         if (!$request->hasAny(['name', 'specialty'])) {
-            return response()->json(['error' => $validator->errors()], 400);
+            return response()->json([
+                'error' => [__('You must submit at least one valid field'),
+                'status' => __('http-statuses.400')
+                ]], 400);
+        };
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors(),
+                'status' => __('http-statuses.400')
+            ], 400);
         }
 
-        // add id with postman. just for check...
         $doctor->update($request->all());
 
         return response()->json($doctor);
@@ -74,6 +85,9 @@ class DoctorController extends Controller
     {
         $doctor->delete();
 
-        return response()->json(['message' => __('Doctor deleted successfully')]);
+        return response()->json([
+            'message' => __(':Attribute deleted successfully', ['Attribute'=>'دکتر']),
+            'status' => __('http-statuses.200')
+        ]);
     }
 }

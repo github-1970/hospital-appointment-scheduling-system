@@ -37,5 +37,6 @@
     "User registered successfully": "کاربر با موفقیت ثبت نام کرد",
     "Invalid credentials": "اطلاعات ورود صحیح نمی‌باشند",
     "The given data was invalid": "داده های داده شده نامعتبر بود",
-    "Doctor deleted successfully": "دکتر با موفقیت حذف شد"
+    ":Attribute deleted successfully": ":Attribute با موفقیت حذف شد",
+    "You must submit at least one valid field": "شما حداقل باید یک فیلد صحیح ارسال کنید"
 }
