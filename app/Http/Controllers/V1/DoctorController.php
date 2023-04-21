@@ -28,6 +28,9 @@ class DoctorController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'specialty' => 'required|string|max:255',
+            'working_hours_start' => 'required|date_format:H:i:s',
+            'working_hours_end' => 'required|date_format:H:i:s',
+            'max_appointments_per_hour' => 'nullable|integer|min:1|max:10',
         ]);
 
         if ($validator->fails()) {
@@ -58,9 +61,12 @@ class DoctorController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'specialty' => 'string|max:255',
+            'working_hours_start' => 'date_format:H:i:s',
+            'working_hours_end' => 'date_format:H:i:s',
+            'max_appointments_per_hour' => 'nullable|integer|min:1|max:10',
         ]);
 
-        if (!$request->hasAny(['name', 'specialty'])) {
+        if (count($request->input()) <= 1) {
             return response()->json([
                 'error' => [__('You must submit at least one valid field'),
                 'status' => __('http-statuses.400')
