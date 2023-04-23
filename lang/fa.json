@@ -40,5 +40,6 @@
     ":Attribute deleted successfully": ":Attribute با موفقیت حذف شد",
     "You must submit at least one valid field": "شما حداقل باید یک فیلد صحیح ارسال کنید",
     "Doctor is not available at this time.": "دکتر در این زمان در دسترس نیست.",
-    "Doctor is fully booked at this time. Next available time: ": "ملاقات با دکتر در این زمان کاملا رزرو شده است. زمان در دسترس بعدی: "
+    "Doctor is fully booked at this time. Next available time: ": "ملاقات با دکتر در این زمان کاملا رزرو شده است. زمان در دسترس بعدی: ",
+    "Logged out successfully": "خروج با موفقیت انجام شد"
 }

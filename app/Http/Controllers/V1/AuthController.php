@@ -55,13 +55,10 @@ class AuthController extends Controller
         ], 401);
     }
 
-    private function validationHandler($validator)
+    public function logout(Request $request)
     {
-        if ($validator->fails()) {
-            return new JsonResponse([
-                'message' => __('The given data was invalid'),
-                'error' => $validator->errors(),
-            ], 422);
-        }
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => __('Logged out successfully')]);
     }
 }
